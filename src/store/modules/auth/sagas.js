@@ -6,18 +6,16 @@ import api from '~/services/api';
 import { signInSucess } from './actions';
 
 export function* signIn({ payload }) {
-  const { email, password } = payload;
+  const { email, senha } = payload;
 
   const response = yield call(api.post, 'sessions', {
-    email,
-    password,
+    email: 'acorreagomes@gmail.com',
+    senha: 'senha1',
   });
 
-  const { token, user } = response.data;
-  if (token) {
-    yield put(signInSucess(token, user));
-    history.push('/dashboard');
-  }
+  const { token, usuario } = response.data;
+  yield put(signInSucess(token, usuario));
+  history.push('/dashboard');
 }
 
 export default all([takeLatest('@auth/SIGN_IN_REQUEST', signIn)]);
